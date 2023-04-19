@@ -1,0 +1,10 @@
+pluginManagement {
+    repositories {
+        maven {
+            url = "https://repo.legacyfabric.net/repository/maven/"
+        }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = "legacy-fixes"

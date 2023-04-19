@@ -1,0 +1,39 @@
+plugins {
+    id("fabric-loom")  version "1.1-SNAPSHOT"
+    id("com.github.hierynomus.license-base") version "0.16.1"
+}
+
+repositories {
+    maven {
+        url = "https://maven.legacyfabric.net/"
+    }
+}
+
+loom {
+    setIntermediaryUrl('https://repo.legacyfabric.net/repository/legacyfabric/net/legacyfabric/intermediary/%1$s/intermediary-%1$s-v2.jar')
+//    runs {
+//        client {
+//            programArgs.add("--userProperties")
+//            programArgs.add("{}")
+//        }
+//    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings "net.legacyfabric:yarn:${yarn_version}:v2"
+    modImplementation("net.fabricmc:fabric-loader:${loader_version}")
+}
+
+license {
+    header = rootProject.file("HEADER")
+    exclude ("**/*.json")
+}
+
+tasks.withType(ProcessResources).configureEach {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}

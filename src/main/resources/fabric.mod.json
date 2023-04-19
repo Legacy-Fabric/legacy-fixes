@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "legacy-fixes",
+  "version": "${version}",
+  "name": "Legacy Fixes",
+  "description": "Fixes for legacy issues",
+  "author": "LegacyFabric Contributors",
+  "license": "Apache-2.0",
+  "contact": {
+    "homepage": "https://legacyfabric.net/",
+    "issues": "https://github.com/legacy-fabric/legacy-fixes/issues",
+    "sources": "https://github.com/legacy-fabric/legacy-fixes/"
+  },
+  "icon": "assets/legacy-fixes/icon.png",
+  "environment": "client",
+  "mixins": [
+    "legacy-fixes.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "<=1.8.9"
+  }
+}

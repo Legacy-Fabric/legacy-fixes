@@ -19,7 +19,8 @@ dependencies {
 
 license {
     header = rootProject.file("HEADER")
-    exclude ("**/*.json")
+
+    include "**/*.java"
 }
 
 processResources {

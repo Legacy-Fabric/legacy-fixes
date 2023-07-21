@@ -14,23 +14,18 @@
  */
 package net.legacyfabric.legacyfixes.mixin;
 
-
 import net.minecraft.client.gui.screen.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-
 @Mixin(TitleScreen.class)
-public class TitleScreenMixin
-{
+public class TitleScreenMixin {
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/TitleScreen;drawWithShadow(Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;III)V"))
-    private String fixFabricBranding(String text)
-    {
+    private String fixFabricBranding(String text) {
         if (text.contains("Minecraft")) {
             text = text + "/Fabric";
         }
-
         return text;
     }
 }

@@ -1,28 +1,20 @@
 plugins {
-    id("fabric-loom")  version "1.1-SNAPSHOT"
-    id("com.github.hierynomus.license-base") version "0.16.1"
+    id "fabric-loom" version "1.3-SNAPSHOT"
+    id "legacy-looming" version "1.3-SNAPSHOT"
+    id "com.github.hierynomus.license-base" version "0.16.1"
 }
 
-repositories {
-    maven {
-        url = "https://maven.legacyfabric.net/"
-    }
-}
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
-loom {
-    setIntermediaryUrl('https://repo.legacyfabric.net/repository/legacyfabric/net/legacyfabric/intermediary/%1$s/intermediary-%1$s-v2.jar')
-//    runs {
-//        client {
-//            programArgs.add("--userProperties")
-//            programArgs.add("{}")
-//        }
-//    }
-}
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
 
 dependencies {
-    minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings "net.legacyfabric:yarn:${yarn_version}:v2"
-    modImplementation("net.fabricmc:fabric-loader:${loader_version}")
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings legacy.yarn(project.minecraft_version, project.yarn_build)
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 }
 
 license {
@@ -30,10 +22,18 @@ license {
     exclude ("**/*.json")
 }
 
-tasks.withType(ProcessResources).configureEach {
+processResources {
     inputs.property "version", project.version
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+
+    if (JavaVersion.current().isJava9Compatible()) {
+        it.options.release = 8
     }
 }
